@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+{% if not exception %}
+<h2><a style="color: rgba(0, 175, 53, 0.986); margin: 3px; padding: 3px;" href="/">Success!</a></h2>
+<h3 style="color: red; margin: 3px; padding: 3px;"> Sold {{lost}} BNB for {{gained}} USDT</h3>
+{% endif %}
+
+{% if exception %}
+
+<h3 style="color: red; margin: 3px; padding: 3px;">Error occurred</h3>
+<h2 style="color: red; border: 5px solid red; margin: 3px; padding: 3px;">{{exception}}</h2>
+
+<a href="/" style="font-size: 17pt; margin: 10px;">Back to main page</a>
+
+{% endif %}
+
+{% endblock %}
