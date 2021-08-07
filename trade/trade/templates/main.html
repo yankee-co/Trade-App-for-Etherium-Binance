@@ -7,35 +7,37 @@
             <td>
                 <div class ='cell'>
                     <div class ='bottomed'>
-                        <h3>BNB/USD</h3> 
-                        <h3>Free balance:
+                        <h3>ETH / USD</h3> 
+                        <h3 id="balance_h3">Free balance:
                             {% if quantity_buy %}
-                            {{quantity_buy}} BNB
+                            {{quantity_buy}} ETH
                             {% else %}
-                            〜
+                            1.5
                             {% endif %}
                         </h3>
-                        <h1 id = 'average_price'>   
+                        <div class = 'small_dollar_char'><h1 id = 'average_price'>   
                             {% if average_price %}
                             {{average_price}}
                             
                             {% else %}
-                            〜
+                            2733
                             {% endif %}
-                            
-                        </h1>
+                            <script>limit_percentage_change();</script>
+                        </h1><h3>$</h3></div>
+                        
                         <h3 class = 'percentage'>&nbsp</h3>
-                        <h2 id = 'spent'>
+                        <div class = 'small_dollar_char' style=" justify-content:flex-start; "><h2 id = 'spent'>
                             {% if spent %}
                             {{spent}}$
                             {% else %}
-                            〜
+                            4100
                             {% endif %}
-                        </h2>
+                        </h2><h3 class='p_l_h3'>$</h3></div>
+                        
                         <form action="/buy/" method="post" style="width: 100%; height: 40px; align-items: center; display: inline-flex;">
                             {% csrf_token %}
                             {{ form }}
-                            <input type="number" min="0.017" step="0.01" id='quantity_buy' name='quantity_buy' placeholder='eg. 0.75' />
+                            <input type="number" min="0.05" step="0.01" id='quantity_buy' name='quantity_buy' placeholder='eg. 0.75' />
                             <input id = "buy_btn" type="submit" value="BUY" />
                         </form>
                     </div>
@@ -44,80 +46,107 @@
             <td>
                 <div class = 'cell'>
                     
-                    <h3>Actual BNB/USD rate</h3>
+                    <h3>Live ETH / USD rate</h3>
                     <h3>&nbsp</h3>
-                    <h1 id = 'BNB-USD_rate'>〜</h1>
-                    <h3 id = 'live_percentage_market' class = 'percentage'>〜</h3>
-                    <h2 id = 'live_dollar_change'>〜</h2> 
+                    <div class = 'small_dollar_char'><h1 id = 'ETH-USD_rate'>0</h1><h3>$</h3></div>
+                    
+                    
+                    <div class = 'small_dollar_char_righted'><h3 id = 'limit_percentage' class = 'percentage'>
+                        0
+                        <script src="{% static 'main.js' %}"></script>
+                        <script>
+                            limit_percentage_change();
+                        </script>
+                    </h3><h4 class='p_l_h3'>%</h4></div>
+                    <div class = 'small_dollar_char_righted'><h2 id = 'live_dollar_change'>0</h2><h3 class='p_l_h3'>$</h3></div>
+                    
                 </div>
             </td>
             <td>
                 <div class = 'cell'>
                     <h3 style="padding-left: 5px;">Create sell limit order</h3>
+                    <h3>&nbsp</h3> 
+                    <form action="/sell_limit/" method="POST">
+                        {% csrf_token %}
+                        <div id = "limit_div">
+                            <div>
+                                <div id="button_above_container">
+                                    <input class = 'arrow_up' type="button" id = 'up1' onclick="butt1up(); limit_percentage_change()" title="Increase value" />
+                                    <input class = 'arrow_up' type="button" id = 'up2' onclick="butt2up(); limit_percentage_change()" title="Increase value" />
+                                    <input class = 'arrow_up' type="button" id = 'up3' onclick="butt3up(); limit_percentage_change()" title="Increase value" />
+                                    <input class = 'arrow_up' type="button" id = 'up4' onclick="butt4up(); limit_percentage_change()" title="Increase value" />
+                                    <div></div>
+                                    <input class = 'arrow_up' type="button" id = 'up5' onclick="butt5up(); limit_percentage_change()" title="Increase value" />
+                                    <input class = 'arrow_up' type="button" id = 'up6' onclick="butt6up(); limit_percentage_change()" title="Increase value" />
+                                    <div></div>
+                                </div>
+                                <div class = 'small_dollar_char'><div id = 'inputDiv'> 
+                                    <input value = '{{limit_default.0}}' type="text" pattern="\d" maxlength="1" name ="value0" id = 'value0' onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                    <input value = '{{limit_default.1}}' type="text" pattern="\d*" maxlength="1" name ="value1" id = 'value1' onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                    <input value = '{{limit_default.2}}' type="text" pattern="\d*" maxlength="1" name ="value2" id = 'value2' onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                    <input value = '{{limit_default.3}}' type="text" pattern="\d*" maxlength="1" name ="value3" id = 'value3' onkeypress='return event.charCode >= 48 && event.charCode <= 57' />                                   
+                                    <input value = '{{limit_default.4}}'type="text" name ="value4" id = 'value4' readonly style="width: 15px;">
+                                    <input value = '{{limit_default.5}}' type="text" pattern="\d*" maxlength="1" name ="value5" id = 'value5' onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                    {% if limit_default.6 %}
+                                    <input value = '{{limit_default.6}}' type="text" pattern="\d*" maxlength="1" name ="value6" id = 'value6' onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                    {% else %}
+                                    <input value = '0' type="text" pattern="\d*" maxlength="1" name ="value6" id = 'value6' onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+                                    {% endif%}
+                                    </div>
+                                    <h3>$</h3>
+                                </div>
+                                <div id="button_below_container">
+                                    <input class = 'arrow_down' type="button" id = 'down1' onclick="butt1down(); limit_percentage_change()" title="Reduce value" />
+                                    <input class = 'arrow_down' type="button" id = 'down2' onclick="butt2down(); limit_percentage_change()" title="Reduce value" />
+                                    <input class = 'arrow_down' type="button" id = 'down3' onclick="butt3down(); limit_percentage_change()" title="Reduce value" />
+                                    <input class = 'arrow_down' type="button" id = 'down4' onclick="butt4down(); limit_percentage_change()" title="Reduce value" />
+                                    <div></div>
+                                    <input class = 'arrow_down' type="button" id = 'down5' onclick="butt5down(); limit_percentage_change()" title="Reduce value" />
+                                    <input class = 'arrow_down' type="button" id = 'down6' onclick="butt6down(); limit_percentage_change()" title="Reduce value" />
+                                    <div></div>
+                                </div>
+                            </div>
+                            <div style="width: 20px;display: flex;align-items: center; margin-left: 20px;"><button type="submit" id='sell_btn' title="Confirm sell limit order"></div>
+                        </div>
+                    </form>
+                    <div class = 'small_dollar_char_righted'>
+                        <h3 id = 'limit_percentage' class = 'percentage'>
+                            0
+                            <script src="{% static 'main.js' %}"></script>
+                            <script>
+                                limit_percentage_change();
+                            </script>
+                        </h3>
+                        <h4 class='p_l_h3'>%</h4>
+                    </div>
+                    
                     <div id = "sell_market_div">
                         <form action="/sell_market/" method="post">
                             {% csrf_token %}
                             <input id="sell_market_input" type="submit" value="Sell for market price"/>
                         </form>
                     </div>
-                    <form action="/sell_limit/" method="POST">
-                        {% csrf_token %}
-                        <div id = "limit_div">
-                            <div style="width: 70%;">
-                                <div id="button_above_container">
-                                    <input class = 'arrow_up' type="button" id = 'up1' onclick="butt1up(); limit_percentage_change()"/>
-                                    <input class = 'arrow_up' type="button" id = 'up2' onclick="butt2up(); limit_percentage_change()"/>
-                                    <input class = 'arrow_up' type="button" id = 'up3' onclick="butt3up(); limit_percentage_change()"/>
-                                    <div></div>
-                                    <input class = 'arrow_up' type="button" id = 'up4' onclick="butt4up(); limit_percentage_change()"/>
-                                    <input class = 'arrow_up' type="button" id = 'up5' onclick="butt5up(); limit_percentage_change()"/>
-                                </div>
-                                <div id = 'inputDiv'> 
-                                    <input value = '{{limit_default.0}}' type="text" pattern="\d" maxlength="1" name ="value0" id = 'value0' onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-                                    <input value = '{{limit_default.1}}' type="text" pattern="\d*" maxlength="1" name ="value1" id = 'value1' onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-                                    <input value = '{{limit_default.2}}' type="text" pattern="\d*" maxlength="1" name ="value2" id = 'value2' onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-                                    <input value = '{{limit_default.3}}' type="text" name ="value3" id = 'value3' readonly style="width: 15px;" />
-                                    <input value = '{{limit_default.4}}' type="text" pattern="\d*" maxlength="1" name ="value4" id = 'value4' onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-                                    {% if limit_default.5 %}
-                                    <input value = '{{limit_default.5}}' type="text" pattern="\d*" maxlength="1" name ="value5" id = 'value5' onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-                                    {% else %}
-                                    <input value = '0' type="text" pattern="\d*" maxlength="1" name ="value5" id = 'value5' onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
-                                    {% endif %}
-                                </div>
-                                <div id="button_below_container">
-                                    <input class = 'arrow_down' type="button" id = 'down1' onclick="butt1down(); limit_percentage_change()"/>
-                                    <input class = 'arrow_down' type="button" id = 'down2' onclick="butt2down(); limit_percentage_change()"/>
-                                    <input class = 'arrow_down' type="button" id = 'down3' onclick="butt3down(); limit_percentage_change()"/>
-                                    <div></div>
-                                    <input class = 'arrow_down' type="button" id = 'down4' onclick="butt4down(); limit_percentage_change()"/>
-                                    <input class = 'arrow_down' type="button" id = 'down5' onclick="butt5down(); limit_percentage_change()"/>
-                                </div>
-                            </div>
-                            <div style="width: 20px;display: flex;align-items: center;"><button type="submit" id='sell_btn'></div>
-                        </div>
-                    </form>
-                    <h3 id = 'limit_percentage' class = 'percentage'>
-                        〜
-                        <script src="{% static 'main.js' %}"></script>
-                        <script>
-                            limit_percentage_change();
-                        </script>
-                        </h3>
                 </div>
             </td>
             <td>
                 <div class = 'cell'>
                     <h3>Profit / Loss</h3> 
                     <h3>&nbsp</h3> 
-                    <h1 id = 'prof_loss'>〜</h1>
-                    <h3 id = 'perc_p_l' class = 'percentage'>〜</h3>
-                    <h2 id = 'righted'>
+                    
+                    <div class = 'small_dollar_char'><h1 id = 'prof_loss'>0</h1><h3 class='p_l_h3'>$/<h4>ETH</h4></h3></div>
+                    <div class = 'small_dollar_char_righted'>
+                        <h3 id = 'perc_p_l' class = 'percentage'>0</h3>
+                        <h4 class='p_l_h3'>%</h4>
+                    </div>
+                    
+                    <div class = 'small_dollar_char_righted'><h2 id = 'profit_in_dollars'>
                         {% if spent %}
                         {{spent}}$
                         {% else %}
-                        〜
+                        0
                         {% endif %}
-                    </h2>  
+                    </h2><h3 class='p_l_h3'>$</h3></div>
+                      
                 </div>
             </td>
 
@@ -132,7 +161,6 @@
     </ul>
     
     {% if order_data %}
-    
     <h4 style="color:red; border:2px solid red;">
     Active sell limit order detected: <br><br>
     {% for k, v in order_data.items %}
@@ -140,6 +168,5 @@
     {% endfor %}
     </h4>
     {% endif %}
-    
     {% endblock %}
     

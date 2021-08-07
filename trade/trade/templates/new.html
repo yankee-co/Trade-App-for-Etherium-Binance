@@ -1,0 +1,18 @@
+{% extends 'base_sec.html' %}
+{% load static %}
+{% block content %}
+
+<div id="authorize">
+    <div id="authorize_small">
+        
+        <form action="" method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" />
+
+    </form>
+
+    </div>
+</div>
+
+{% endblock %}

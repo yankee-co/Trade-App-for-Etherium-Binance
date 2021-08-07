@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from .views import MainView, buy, sell_market, sell_limit
+from .views import MainView, buy, sell_market, sell_limit, NewDesign
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +24,5 @@ urlpatterns = [
     path('buy/', buy),
     path('sell_market/', sell_market),
     path('sell_limit/', sell_limit),
+    path('new_design', NewDesign.as_view())
 ] + staticfiles_urlpatterns()
