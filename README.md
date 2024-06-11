@@ -8,8 +8,11 @@ observing the changes and the movement directions of the chosen cryptocurrency.
 **Solution**
 
 • Cryptocurrencies behavior
+
 • Binance API
+
 • Minimalistic simple design
+
 • Powered by Django
 
 **Logic**
@@ -23,23 +26,34 @@ functions via session variables
 **Functionality**
 
 • Buy choosen amount of crypto
+
 • Sell crypto for market place
+
 • Create sell-limit order
+
 
 **Data provided**
 
 • General and in-app balances
+
 • Live cryptocurrency rate in dollars ($) and 
 percent (%)
+
 • Profit / Loss in dollars ($) and percents (%)
+
 • Live real-time updating graphic chart
+
 
 **Technologies**
 
 • Django Framework
+
 • Python
+
 • Javascript
+
 • HTML
+
 • CSS
 
 **View**
