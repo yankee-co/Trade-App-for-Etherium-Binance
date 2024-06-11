@@ -44,5 +44,6 @@ percent (%)
 
 **View**
 
-
 ![image](https://github.com/yankee-co/trade-app/assets/72886859/7a47e822-41ec-4833-960d-9dfd1e380da8)
+
+Web app was connected to Binance account and was getting data from live data stream using Binance API updating every second or even more often.
