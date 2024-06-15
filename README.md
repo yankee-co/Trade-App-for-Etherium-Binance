@@ -1,4 +1,4 @@
-Order from freelance platform Fiverr. Design was made from a reference created and provided by the client. So the appearance and it's design were planned before and only realized as code by me.
+Order from freelance platform Fiverr. Design was made from a reference created and provided by the client. So the appearance and it's design were planned before and only implemented as code by me.
 
 **Target:**
 
